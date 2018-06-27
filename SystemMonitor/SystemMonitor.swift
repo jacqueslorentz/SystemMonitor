@@ -13,7 +13,10 @@ class SystemMonitor {
         
     }
     
-    func getMemoryInfos() -> SwapUsage {
-        return MemoryHandler.getSwapInfos()
+    func getMemoryInfos() -> MemoryUsage {
+        return MemoryUsage(
+            swapUsage: MemoryHandler.getSwapInfos(),
+            ramUsage: MemoryHandler.getRAMInfos()
+        )
     }
 }
