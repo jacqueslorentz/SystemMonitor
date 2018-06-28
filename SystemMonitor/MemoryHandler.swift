@@ -12,9 +12,9 @@ public struct MemoryUsage {
     let swapUsage: SwapUsage
     let ramUsage: RAMUsage
     
-    func print() {
-        Swift.print(swapUsage.convertTo(unit: "GB"))
-        Swift.print(ramUsage.convertTo(unit: "GB"))
+    func print() throws {
+        Swift.print(try swapUsage.convertTo(unit: "GB"))
+        Swift.print(try ramUsage.convertTo(unit: "GB"))
     }
 }
 
@@ -30,8 +30,8 @@ public struct SwapUsage {
     let used: UInt64
     let free: UInt64
     
-    func convertTo(unit: String) -> ConvertedSwapUsage {
-        let mult = getBytesConversionMult(unit: unit)
+    func convertTo(unit: String) throws -> ConvertedSwapUsage {
+        let mult = try getBytesConversionMult(unit: unit)
         return ConvertedSwapUsage(
             total: (Float)(self.total) / mult,
             used: (Float)(self.used) / mult,
@@ -56,9 +56,9 @@ public struct RAMUsage {
     let compressed: UInt
     let available: UInt
     
-    func convertTo(unit: String) -> ConvertedRAMUsage {
+    func convertTo(unit: String) throws -> ConvertedRAMUsage {
         let pageSize: UInt = 4096
-        let mult = getBytesConversionMult(unit: unit)
+        let mult = try getBytesConversionMult(unit: unit)
         return ConvertedRAMUsage(
             wired: (Float)(self.wired * pageSize) / mult,
             active: (Float)(self.active * pageSize) / mult,
@@ -70,8 +70,8 @@ public struct RAMUsage {
 }
 
 struct MemoryHandler {
-    static func getRAMInfos() -> RAMUsage {
-        let array = hostCall(request: HOST_VM_INFO64, layoutSize: MemoryLayout<vm_statistics64_data_t>.size);
+    static func getRAMInfos() throws -> RAMUsage {
+        let array = try hostCall(request: HOST_VM_INFO64, layoutSize: MemoryLayout<vm_statistics64_data_t>.size);
         
         var stat: [String: UInt] = [:]
         let attr: [(String, Int)] = [
@@ -102,8 +102,8 @@ struct MemoryHandler {
         );
     }
     
-    static func getSwapInfos() -> SwapUsage {
-        let res = sysctlCall(request: [CTL_VM, VM_SWAPUSAGE], layoutSize: MemoryLayout<xsw_usage>.size);
+    static func getSwapInfos() throws -> SwapUsage {
+        let res = try sysctlCall(request: [CTL_VM, VM_SWAPUSAGE], layoutSize: MemoryLayout<xsw_usage>.size);
         return SwapUsage(total: res[0], used: res[1], free: res[2]);
     }
 }

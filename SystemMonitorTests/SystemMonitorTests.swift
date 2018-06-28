@@ -33,24 +33,24 @@ class SystemMonitorTests: XCTestCase {
         }
     }
     
-    func testPourt() {
-        let infos = SystemMonitor().getMemoryInfos()
-        infos.print()
+    func testPourt() throws {
+        let infos = try SystemMonitor().getMemoryInfos()
+        try infos.print()
         
         let ram = infos.ramUsage
         let swap = infos.swapUsage
         
         print(ram)
-        print(ram.convertTo(unit: "B"))
-        print(ram.convertTo(unit: "KB"))
-        print(ram.convertTo(unit: "MB"))
-        print(ram.convertTo(unit: "GB"))
+        print(try ram.convertTo(unit: "B"))
+        print(try ram.convertTo(unit: "KB"))
+        print(try ram.convertTo(unit: "MB"))
+        print(try ram.convertTo(unit: "GB"))
         
         print(swap)
-        print(swap.convertTo(unit: "B"))
-        print(swap.convertTo(unit: "KB"))
-        print(swap.convertTo(unit: "MB"))
-        print(swap.convertTo(unit: "GB"))
+        print(try swap.convertTo(unit: "B"))
+        print(try swap.convertTo(unit: "KB"))
+        print(try swap.convertTo(unit: "MB"))
+        print(try swap.convertTo(unit: "GB"))
         
 
     }

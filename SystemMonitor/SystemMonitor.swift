@@ -8,15 +8,21 @@
 
 import Foundation
 
+enum SystemMonitorError : Error {
+    case sysctlError(arg: [Int32], errno: String)
+    case hostStatError(arg: Int32, errno: String)
+    case conversionFailed(invalidUnit: String)
+}
+
 class SystemMonitor {
     func getInfos() {
         
     }
     
-    func getMemoryInfos() -> MemoryUsage {
+    func getMemoryInfos() throws -> MemoryUsage {
         return MemoryUsage(
-            swapUsage: MemoryHandler.getSwapInfos(),
-            ramUsage: MemoryHandler.getRAMInfos()
+            swapUsage: try MemoryHandler.getSwapInfos(),
+            ramUsage: try MemoryHandler.getRAMInfos()
         )
     }
 }
