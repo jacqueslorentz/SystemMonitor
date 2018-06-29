@@ -12,24 +12,10 @@ func stringErrno() -> String {
     return String(cString: strerror(errno));
 }
 
-func hostCall(request: Int32, layoutSize: Int) throws -> [Int32] {
-    let size = layoutSize / MemoryLayout<Int32>.size
-    let ptr = UnsafeMutablePointer<Int32>.allocate(capacity: size)
-    var count = UInt32(size)
-    
-    if (host_statistics64(mach_host_self(), request, ptr, &count) != 0) {
-        throw SystemMonitorError.hostStatError(arg: request, errno: stringErrno())
-    }
-    let res = Array(UnsafeBufferPointer(start: ptr, count: size))
-    ptr.deallocate()
-    return res
-}
-
 func sysctlCall(request: [Int32], layoutSize: Int) throws -> [UInt64] {
     let size = layoutSize / MemoryLayout<UInt64>.size
     let ptr = UnsafeMutablePointer<UInt64>.allocate(capacity: size)
     var count = layoutSize
-
     if (sysctl(UnsafeMutablePointer(mutating: request), 2, ptr, &count, nil, 0) != 0) {
         throw SystemMonitorError.sysctlError(arg: request, errno: stringErrno())
     }

@@ -33,7 +33,15 @@ class SystemMonitorTests: XCTestCase {
         }
     }
     
-    func testPourt() throws {
+    func testInDev() throws {
+        do {
+            let usage = try SystemMonitor().getProcessorInfos().usage
+            print(usage)
+            print(usage.toPercent(unixLike: true))
+            print(usage.toPercent(unixLike: false))
+        } catch {
+            print(error)
+        }
         let infos = try SystemMonitor().getMemoryInfos()
         try infos.print()
         

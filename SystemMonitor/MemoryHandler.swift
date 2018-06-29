@@ -71,7 +71,7 @@ public struct RAMUsage {
 
 struct MemoryHandler {
     static func getRAMInfos() throws -> RAMUsage {
-        let array = try hostCall(request: HOST_VM_INFO64, layoutSize: MemoryLayout<vm_statistics64_data_t>.size);
+        let array = try hostMemoryCall(request: HOST_VM_INFO64, layoutSize: MemoryLayout<vm_statistics64_data_t>.size);
         
         var stat: [String: UInt] = [:]
         let attr: [(String, Int)] = [
@@ -106,4 +106,16 @@ struct MemoryHandler {
         let res = try sysctlCall(request: [CTL_VM, VM_SWAPUSAGE], layoutSize: MemoryLayout<xsw_usage>.size);
         return SwapUsage(total: res[0], used: res[1], free: res[2]);
     }
+}
+
+func hostMemoryCall(request: Int32, layoutSize: Int) throws -> [Int32] {
+    let size = layoutSize / MemoryLayout<Int32>.size
+    let ptr = UnsafeMutablePointer<Int32>.allocate(capacity: size)
+    var count = UInt32(size)
+    if (host_statistics64(mach_host_self(), request, ptr, &count) != 0) {
+        throw SystemMonitorError.hostCallError(arg: request, errno: stringErrno())
+    }
+    let res = Array(UnsafeBufferPointer(start: ptr, count: size))
+    ptr.deallocate()
+    return res
 }
