@@ -1,3 +1,5 @@
+## Features
+
 ### Memory
 
 - Memory pressure
@@ -6,3 +8,10 @@
 ### Processor
 
 - CPU frequency / temp (Intel Power Gadget)
+
+### Disks
+
+- S.M.A.R.T.
+
+
+## Tests

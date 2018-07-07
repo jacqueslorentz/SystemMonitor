@@ -22,6 +22,7 @@ public struct ConvertedSwapUsage {
     let total: Float
     let used: Float
     let free: Float
+    let unit: String
 }
 
 // In bytes
@@ -35,7 +36,8 @@ public struct SwapUsage {
         return ConvertedSwapUsage(
             total: (Float)(self.total) / mult,
             used: (Float)(self.used) / mult,
-            free: (Float)(self.free) / mult
+            free: (Float)(self.free) / mult,
+            unit: unit
         )
     }
 }
@@ -46,6 +48,7 @@ public struct ConvertedRAMUsage {
     let appMemory: Float
     let compressed: Float
     let available: Float
+    let unit: String
 }
 
 // In Memory pages (4096 bytes)
@@ -64,7 +67,8 @@ public struct RAMUsage {
             active: (Float)(self.active * pageSize) / mult,
             appMemory: (Float)(self.appMemory * pageSize) / mult,
             compressed: (Float)(self.compressed * pageSize) / mult,
-            available: (Float)(self.available * pageSize) / mult
+            available: (Float)(self.available * pageSize) / mult,
+            unit: unit
         )
     }
 }

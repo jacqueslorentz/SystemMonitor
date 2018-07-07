@@ -34,6 +34,16 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testInDev() throws {
+        //print(try SystemMonitor().getInfos())
+        //return
+        let disks = try SystemMonitor().getDiskInfos()
+        print(disks.disks)
+        let volumes = disks.volumes
+        print(try volumes.map({ (volume: VolumeInfos) -> (String, ConvertedVolumeUsage) in
+            (volume.mountname, try volume.usage.convertTo(unit: "GB"))
+        }))
+        
+        return
         do {
             let usage = try SystemMonitor().getProcessorInfos().usage
             print(usage)

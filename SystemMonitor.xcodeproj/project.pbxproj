@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4229E0C20ED284D00D8CE13 /* DiskHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4229E0B20ED284D00D8CE13 /* DiskHandler.swift */; };
 		C4262F2820E0091B001FDF22 /* SystemMonitor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4262F1E20E0091B001FDF22 /* SystemMonitor.framework */; };
 		C4262F2D20E0091B001FDF22 /* SystemMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4262F2C20E0091B001FDF22 /* SystemMonitorTests.swift */; };
 		C4262F2F20E0091B001FDF22 /* SystemMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = C4262F2120E0091B001FDF22 /* SystemMonitor.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C4229E0B20ED284D00D8CE13 /* DiskHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskHandler.swift; sourceTree = "<group>"; };
 		C4262F1E20E0091B001FDF22 /* SystemMonitor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SystemMonitor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4262F2120E0091B001FDF22 /* SystemMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemMonitor.h; sourceTree = "<group>"; };
 		C4262F2220E0091B001FDF22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				C462FDD720E0385200C6F9C5 /* MemoryHandler.swift */,
 				C462FDD920E0398300C6F9C5 /* Utils.swift */,
 				C4EE986720E64FA60077D90C /* ProcessorHandler.swift */,
+				C4229E0B20ED284D00D8CE13 /* DiskHandler.swift */,
 			);
 			path = SystemMonitor;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C462FDD620E035A000C6F9C5 /* SystemMonitor.swift in Sources */,
+				C4229E0C20ED284D00D8CE13 /* DiskHandler.swift in Sources */,
 				C462FDD820E0385200C6F9C5 /* MemoryHandler.swift in Sources */,
 				C462FDDA20E0398300C6F9C5 /* Utils.swift in Sources */,
 				C4EE986820E64FA60077D90C /* ProcessorHandler.swift in Sources */,
