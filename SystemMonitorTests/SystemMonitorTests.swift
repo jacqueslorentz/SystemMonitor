@@ -34,8 +34,12 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testInDev() throws {
-        //print(try SystemMonitor().getInfos())
-        //return
+        return print(try SystemMonitor().getNetworkInfos().first(where: { (infos: NetworkInterfaceInfos) -> Bool in
+            infos.name == "en0"
+        }))
+        return print(try SystemMonitor().getNetworkInfos())
+        return print(try SystemMonitor().getInfos())
+        
         let disks = try SystemMonitor().getDiskInfos()
         print(disks.disks)
         let volumes = disks.volumes

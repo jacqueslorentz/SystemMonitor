@@ -1,17 +1,24 @@
 ## Features
 
-### Memory
+#### Memory
 
 - Memory pressure
 - Memory cache
 
-### Processor
+#### Processor
 
 - CPU frequency / temp (Intel Power Gadget)
 
-### Disks
+#### Disks
 
 - S.M.A.R.T.
+
+##### Network
+
+- Public IP
+- Network nice name
+
+
 
 
 ## Tests

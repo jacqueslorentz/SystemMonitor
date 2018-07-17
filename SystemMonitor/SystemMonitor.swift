@@ -14,12 +14,14 @@ enum SystemMonitorError : Error {
     case conversionFailed(invalidUnit: String)
     case statfsError(errno: String)
     case IOKitError(error: String)
+    case getifaddrsError()
 }
 
 public struct SystemInfos {
     let memory: MemoryUsage
     let processor: CPUInfos
     let disk: VolumesDisksInfos
+    let network: [NetworkInterfaceInfos]
 }
 
 class SystemMonitor {
@@ -27,7 +29,8 @@ class SystemMonitor {
         return SystemInfos(
             memory: try self.getMemoryInfos(),
             processor: try self.getProcessorInfos(),
-            disk: try self.getDiskInfos()
+            disk: try self.getDiskInfos(),
+            network: try self.getNetworkInfos()
         )
     }
     
@@ -49,5 +52,9 @@ class SystemMonitor {
             volumes: try DiskHandler.getVolumesInfos(),
             disks: try DiskHandler.getDisksInfos()
         )
+    }
+    
+    func getNetworkInfos() throws -> [NetworkInterfaceInfos] {
+        return try NetworkHandler.getNetworkInfos()
     }
 }
