@@ -7,16 +7,27 @@
 
 #### Processor
 
+- CPU Infos (model,...)
+
 - CPU frequency / temp (Intel Power Gadget)
 
 #### Disks
 
 - S.M.A.R.T.
 
-##### Network
+#### Network
 
 - Public IP
 - Network nice name
+
+#### GPU
+
+- Intel GPU frequency / temp (Intel Power Gadget)
+- Display frame per second
+
+
+
+## Documentation
 
 
 

@@ -22,6 +22,7 @@ public struct SystemInfos {
     let processor: CPUInfos
     let disk: VolumesDisksInfos
     let network: [NetworkInterfaceInfos]
+    let graphics: [GPUInfos]
 }
 
 class SystemMonitor {
@@ -30,7 +31,8 @@ class SystemMonitor {
             memory: try self.getMemoryInfos(),
             processor: try self.getProcessorInfos(),
             disk: try self.getDiskInfos(),
-            network: try self.getNetworkInfos()
+            network: try self.getNetworkInfos(),
+            graphics: try self.getGPUInfos()
         )
     }
     
@@ -56,5 +58,9 @@ class SystemMonitor {
     
     func getNetworkInfos() throws -> [NetworkInterfaceInfos] {
         return try NetworkHandler.getNetworkInfos()
+    }
+    
+    func getGPUInfos() throws -> [GPUInfos] {
+        return try GPUHandler.getGPUUsage()
     }
 }

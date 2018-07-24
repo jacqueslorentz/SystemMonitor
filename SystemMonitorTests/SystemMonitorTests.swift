@@ -34,6 +34,13 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testInDev() throws {
+        do {
+            
+            return print(try SystemMonitor().getGPUInfos())
+        } catch {
+            print(error)
+        }
+        
         return print(try SystemMonitor().getNetworkInfos().first(where: { (infos: NetworkInterfaceInfos) -> Bool in
             infos.name == "en0"
         }))
