@@ -6,7 +6,7 @@
 //  Copyright © 2018 Jacques Lorentz. All rights reserved.
 //
 
-import Foundation
+import IOKit
 
 public struct VolumesDisksInfos {
     let volumes: [VolumeInfos]
@@ -186,12 +186,12 @@ func getDriveStats(drive: io_registry_entry_t) throws -> DriveStats {
 func getAllDrives() throws -> [DriveStats] {
     var drives = [DriveStats]()
     guard var iomatch = IOServiceMatching("IOMedia") as? [String: Any] else {
-        throw SystemMonitorError.IOKitError(error: "MatchIOMedia error")
+        throw SystemMonitorError.IOKitError(error: "IOMedia")
     }
     iomatch.updateValue(kCFBooleanTrue, forKey: "Whole")
     var drivelist = io_iterator_t()
     if (IOServiceGetMatchingServices(kIOMasterPortDefault, iomatch as CFDictionary, &drivelist) != KERN_SUCCESS) {
-        throw SystemMonitorError.IOKitError(error: "MatchIOMedia error")
+        throw SystemMonitorError.IOKitError(error: "IOMedia")
     }
     for _ in 0 ... 10 {
         let drive = IOIteratorNext(drivelist)
