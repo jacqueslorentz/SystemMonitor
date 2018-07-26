@@ -36,7 +36,7 @@ class SystemMonitorTests: XCTestCase {
     func testInDev() throws {
         do {
             
-            return print(try SystemMonitor().getGPUInfos())
+            return print(try SystemMonitor().getSystemInfos())
         } catch {
             print(error)
         }

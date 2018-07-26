@@ -25,11 +25,17 @@
 - Intel GPU frequency / temp (Intel Power Gadget)
 - Display frame per second
 
+#### Sensors
+
+- Get maximum values
+
+#### Power
+
+- Battery Infos
+- Battery Usage
+- Charging infos
+
 
 
 ## Documentation
 
-
-
-
-## Tests
