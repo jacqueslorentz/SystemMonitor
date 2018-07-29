@@ -31,9 +31,7 @@
 
 #### Power
 
-- Battery Infos
-- Battery Usage
-- Charging infos
+- Charger power capability
 
 
 
