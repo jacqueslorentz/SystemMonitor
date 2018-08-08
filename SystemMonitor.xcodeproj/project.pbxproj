@@ -17,6 +17,7 @@
 		C463355520FE729200E82CE5 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463355420FE729200E82CE5 /* NetworkHandler.swift */; };
 		C48231F6210656A1000619F8 /* GPUHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48231F5210656A1000619F8 /* GPUHandler.swift */; };
 		C48F837D210E4504008BE0E5 /* BatteryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48F837C210E4504008BE0E5 /* BatteryHandler.swift */; };
+		C4963F6A210F252800524C72 /* SensorsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963F69210F252800524C72 /* SensorsHandler.swift */; };
 		C4D1B0712108571E004E91FC /* SystemHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1B0702108571E004E91FC /* SystemHandler.swift */; };
 		C4EE986820E64FA60077D90C /* ProcessorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EE986720E64FA60077D90C /* ProcessorHandler.swift */; };
 /* End PBXBuildFile section */
@@ -45,6 +46,7 @@
 		C463355420FE729200E82CE5 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		C48231F5210656A1000619F8 /* GPUHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUHandler.swift; sourceTree = "<group>"; };
 		C48F837C210E4504008BE0E5 /* BatteryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryHandler.swift; sourceTree = "<group>"; };
+		C4963F69210F252800524C72 /* SensorsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorsHandler.swift; sourceTree = "<group>"; };
 		C4D1B0702108571E004E91FC /* SystemHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemHandler.swift; sourceTree = "<group>"; };
 		C4EE986720E64FA60077D90C /* ProcessorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessorHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +102,7 @@
 				C48231F5210656A1000619F8 /* GPUHandler.swift */,
 				C4D1B0702108571E004E91FC /* SystemHandler.swift */,
 				C48F837C210E4504008BE0E5 /* BatteryHandler.swift */,
+				C4963F69210F252800524C72 /* SensorsHandler.swift */,
 			);
 			path = SystemMonitor;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				C462FDD820E0385200C6F9C5 /* MemoryHandler.swift in Sources */,
 				C462FDDA20E0398300C6F9C5 /* Utils.swift in Sources */,
 				C4EE986820E64FA60077D90C /* ProcessorHandler.swift in Sources */,
+				C4963F6A210F252800524C72 /* SensorsHandler.swift in Sources */,
 				C463355520FE729200E82CE5 /* NetworkHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

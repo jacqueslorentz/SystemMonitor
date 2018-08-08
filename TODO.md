@@ -27,7 +27,7 @@
 
 #### Sensors
 
-- Get maximum values
+- Sort and parse some sensors values (temp / volt / amp / watt / fans)
 
 #### Power
 
@@ -37,3 +37,5 @@
 
 ## Documentation
 
+- Installation
+- README.md (with API desc)

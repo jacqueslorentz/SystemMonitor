@@ -25,9 +25,12 @@ public struct SystemInfos {
     let graphics: [GPUInfos]
     let system: SystemSpecificInfos
     let battery: BatteryInfos
+    let sensors: SensorsInfos
 }
 
 class SystemMonitor {
+    let sensorsHandler = SensorsHandler()
+    
     func getInfos() throws -> SystemInfos {
         return SystemInfos(
             memory: try self.getMemoryInfos(),
@@ -36,7 +39,8 @@ class SystemMonitor {
             network: try self.getNetworkInfos(),
             graphics: try self.getGPUInfos(),
             system: try self.getSystemInfos(),
-            battery: try self.getBatteryInfos()
+            battery: try self.getBatteryInfos(),
+            sensors: try self.getSensorsInfos()
         )
     }
     
@@ -74,5 +78,9 @@ class SystemMonitor {
     
     func getBatteryInfos() throws -> BatteryInfos {
         return try BatteryHandler.getBatteryInfos()
+    }
+    
+    func getSensorsInfos() throws -> SensorsInfos {
+        return try sensorsHandler.getSensorsInfos()
     }
 }
