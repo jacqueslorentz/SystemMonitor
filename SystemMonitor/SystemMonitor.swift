@@ -15,6 +15,7 @@ enum SystemMonitorError : Error {
     case statfsError(errno: String)
     case IOKitError(error: String)
     case getifaddrsError()
+    case SMCError()
 }
 
 public struct SystemInfos {
@@ -29,7 +30,11 @@ public struct SystemInfos {
 }
 
 class SystemMonitor {
-    let sensorsHandler = SensorsHandler()
+    let sensorsHandler: SensorsHandler
+        
+    init() throws {
+        self.sensorsHandler = try SensorsHandler()
+    }
     
     func getInfos() throws -> SystemInfos {
         return SystemInfos(

@@ -27,7 +27,7 @@
 
 #### Sensors
 
-- Sort and parse some sensors values (temp / volt / amp / watt / fans)
+- Add names to sensors (temp / volt / amp / watt)
 
 #### Power
 

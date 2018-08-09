@@ -35,8 +35,8 @@ class SystemMonitorTests: XCTestCase {
     
     func testInDev() throws {
         do {
-            let sm = SystemMonitor()
-            try sm.getSensorsInfos()
+            let sm = try SystemMonitor()
+            print(try sm.getSensorsInfos())
             return
         } catch {
             print(error)

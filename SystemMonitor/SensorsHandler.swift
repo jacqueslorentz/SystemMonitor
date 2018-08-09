@@ -91,23 +91,26 @@ public struct SMCParamStruct {
                            UInt8(0), UInt8(0))
 }
 
-public struct SMCSensor {
-    let name: String
-    let dataType: String
-    let keyCode: UInt32
-    let dataTypeCode: UInt32
-    let bytes: SMCBytes
+public struct FanSensor {
+    let min: Float
+    let max: Float
+    let actual: Float
+    let target: Float
 }
 
 public struct SensorsInfos {
-    let smcSensors: [SMCSensor]
+    let fans: [FanSensor]
+    let temperatures: [String:Float]
+    let amperages: [String:Float]
+    let voltages: [String:Float]
+    let powers: [String:Float]
 }
 
 struct SensorsHandler {
-    var sensors: [SMCSensor]
+    var sensors: [(UInt32, UInt32)]
     
-    init() {
-        self.sensors = [SMCSensor]()
+    init() throws {
+        self.sensors = [(UInt32, UInt32)]()
         var ioc = io_connect_t()
         let service: io_object_t = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("AppleSMC"))
         if (service != IO_OBJECT_NULL) {
@@ -122,7 +125,7 @@ struct SensorsHandler {
             inputStruct.keyInfo.dataSize = 4
             inputStruct.data8 = 5
             if (IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize) != kIOReturnSuccess) {
-                //
+                throw SystemMonitorError.SMCError()
             }
             let total = UInt32(outputStruct.bytes.0) << 24 + UInt32(outputStruct.bytes.1) << 16
                 + UInt32(outputStruct.bytes.2) << 8 + UInt32(outputStruct.bytes.3)
@@ -132,23 +135,19 @@ struct SensorsHandler {
                 inputStruct.data8 = 8
                 inputStruct.data32 = i
                 if (IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize) != kIOReturnSuccess) {
-                    //
+                    throw SystemMonitorError.SMCError()
                 }
                 let key = outputStruct.key
                 inputStruct.key = outputStruct.key
                 inputStruct.keyInfo.dataSize = 4
                 inputStruct.data8 = 9
                 if (IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize) != kIOReturnSuccess) {
-                    //
+                    throw SystemMonitorError.SMCError()
                 }
                 let dataType = outputStruct.keyInfo.dataType
-                self.sensors.append(SMCSensor(
-                    name: uint32ToString(value: key),
-                    dataType: uint32ToString(value: dataType),
-                    keyCode: key,
-                    dataTypeCode: dataType,
-                    bytes: outputStruct.bytes
-                ))
+                if (acceptKey(key: key, type: dataType)) {
+                    self.sensors.append((key, dataType))
+                }
                 i += 1
             }
             IOServiceClose(ioc)
@@ -158,26 +157,54 @@ struct SensorsHandler {
     func getSensorsInfos() throws -> SensorsInfos {
         var ioc = io_connect_t()
         let service: io_object_t = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("AppleSMC"))
-        var sensors = [SMCSensor]()
+        var sensors = [String:Float]()
+        var fans = [UInt32:[UInt32:Float]]()
+        
         if (service != IO_OBJECT_NULL) {
             IOServiceOpen(service, mach_task_self_, 0, &ioc)
             var inputStruct = SMCParamStruct()
             var outputStruct = SMCParamStruct()
             let inputStructSize = MemoryLayout<SMCParamStruct>.stride
             var outputStructSize = MemoryLayout<SMCParamStruct>.stride
-            sensors = self.sensors.map { (s: SMCSensor) -> SMCSensor in
-                inputStruct.key = s.keyCode
+            for s in self.sensors {
+                let letter = s.0 >> 24
+                inputStruct.key = s.0
                 inputStruct.keyInfo.dataSize = 4
                 inputStruct.data8 = 5
                 if (IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize) != kIOReturnSuccess) {
-                    //
+                    throw SystemMonitorError.SMCError()
                 }
                 let data = outputStruct.bytes
-                return SMCSensor(name: s.name, dataType: s.dataType, keyCode: s.keyCode, dataTypeCode: s.dataTypeCode, bytes: data)
+                if (letter != 0x46) {
+                    sensors[uint32ToString(value: s.0)] = (s.1 == 1718383648 ? fltToFloat(data.0, data.1, data.2, data.3) : sp78ToFloat(data.0, data.1))
+                } else {
+                    let nb = (s.0 >> 16 & 0xFF) - 0x30 // 0
+                    if (fans[nb] == nil) {
+                        fans[nb] = [UInt32:Float]()
+                    }
+                    fans[nb]![s.0 & 0xFFFF] = fpe2ToFloat(data.0, data.1)
+                }
             }
             IOServiceClose(ioc)
         }
-        return SensorsInfos(smcSensors: sensors)
+        
+        let fanSensors = fans.map({ (arg0) -> FanSensor in
+            let (_, value) = arg0
+            return FanSensor(
+                min: value[0x4D6e]!,
+                max: value[0x4D78]!,
+                actual: value[0x4163]!,
+                target: value[0x5467]!
+            )
+        })
+
+        return SensorsInfos(
+            fans: fanSensors,
+            temperatures: sensors.filter({ $0.key.first == "T" }),
+            amperages: sensors.filter({ $0.key.first == "I" }),
+            voltages: sensors.filter({ $0.key.first == "V" }),
+            powers: sensors.filter({ $0.key.first == "P" })
+        )
     }
 }
 
@@ -194,10 +221,28 @@ func uint32ToString(value: UInt32) -> String {
         String(describing: UnicodeScalar(value & 0xff)!)
 }
 
-func sp78ToDouble(_ byte0: UInt8, _ byte1: UInt8) -> Double {
-    return Double(Int16(byte0) << 8 + Int16(byte1)) / 256.0 // (2 ^ 8)
+func sp78ToFloat(_ byte0: UInt8, _ byte1: UInt8) -> Float {
+    return Float(Int16(byte0) << 8 + Int16(byte1)) / 256.0 // (2 ^ 8)
 }
 
-func fpe2ToDouble(_ byte0: UInt8, _ byte1: UInt8) -> Double {
-    return Double(UInt16(byte0) << 8 + UInt16(byte1)) / 4.0 // (2 ^ 2)
+func fpe2ToFloat(_ byte0: UInt8, _ byte1: UInt8) -> Float {
+    return Float(UInt16(byte0) << 8 + UInt16(byte1)) / 4.0 // (2 ^ 2)
+}
+
+func fltToFloat(_ byte0: UInt8, _ byte1: UInt8, _ byte2: UInt8, _ byte3: UInt8) -> Float {
+    return Float(bitPattern: UInt32(fromBytes: (byte3, byte2, byte1, byte0)))
+}
+
+func acceptKey(key: UInt32, type: UInt32) -> Bool {
+    let flt = 1718383648
+    let sp78 = 1936734008
+    let fpe2 = 1718641970
+    let letter = key >> 24
+    return (
+        letter == 0x56 && type == flt // V - flt
+            || letter == 0x54 && type == sp78 // T - sp78
+            || letter == 0x49 && type == flt // I - flt
+            || letter == 0x50 && (type == flt || type == sp78) // P - flt & sp78
+            || letter == 0x46 && type == fpe2 // F - fpe2
+    )
 }
