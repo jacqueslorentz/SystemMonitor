@@ -2,11 +2,13 @@
 
 #### Memory
 
-- Memory pressure
-- Memory cache
+- Total RAM
+- RAM pressure
+- RAM cache
 
 #### Processor
 
+- Core number
 - CPU Infos (model,...)
 - CPU frequency / temp (Intel Power Gadget)
 
