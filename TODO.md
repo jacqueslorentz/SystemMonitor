@@ -8,7 +8,6 @@
 #### Processor
 
 - CPU Infos (model,...)
-
 - CPU frequency / temp (Intel Power Gadget)
 
 #### Disks
@@ -32,10 +31,3 @@
 #### Power
 
 - Charger power capability
-
-
-
-## Documentation
-
-- Installation
-- README.md (with API desc)
