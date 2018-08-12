@@ -59,7 +59,7 @@ public struct InterfaceAddress {
 public struct NetworkInterfaceInfos {
     let name: String
     let bytessend: UInt
-    let bytereceived: UInt
+    let bytesreceived: UInt
     let addresses: [InterfaceAddress]
 }
 
@@ -71,7 +71,7 @@ struct NetworkHandler {
             return NetworkInterfaceInfos(
                 name: interface.name,
                 bytessend: interface.bytessend,
-                bytereceived: interface.bytereceived,
+                bytesreceived: interface.bytesreceived,
                 addresses: ifaddresses[interface.name] ?? [InterfaceAddress]()
             )
         }
@@ -134,7 +134,7 @@ func getInterfaceIO(interfaces: [String]) throws -> [NetworkInterfaceInfos] {
                     // print(pd.ifm_flags)
                     
                     if index < interfaces.count {
-                        io.append(NetworkInterfaceInfos(name: interfaces[index], bytessend: UInt(pd.ifm_data.ifi_obytes), bytereceived: UInt(pd.ifm_data.ifi_ibytes), addresses: [InterfaceAddress]()))
+                        io.append(NetworkInterfaceInfos(name: interfaces[index], bytessend: UInt(pd.ifm_data.ifi_obytes), bytesreceived: UInt(pd.ifm_data.ifi_ibytes), addresses: [InterfaceAddress]()))
                     }
                     index += 1
                 }
@@ -164,7 +164,7 @@ func getAddressType(ptr: UnsafeMutablePointer<sockaddr>?) -> String {
     case UInt8(AF_INET6):
         return "ipv6"
     case UInt8(AF_LINK):
-        return "mac"
+        return "ether"
     default:
         return String(ptr!.pointee.sa_family)
     }
