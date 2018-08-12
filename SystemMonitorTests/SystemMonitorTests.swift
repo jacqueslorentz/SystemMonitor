@@ -265,7 +265,6 @@ class SystemMonitorTests: XCTestCase {
             String(batteryInfos.isFullyCharged) + ")"
         )
         print("\tTime remaining:", batteryInfos.timeRemaining / 60, "hours", batteryInfos.timeRemaining % 60, "minutes")
-        print(batteryInfos) // chargingCurrent
         
         print("Sensors Infos:")
         let sensorsInfos = try sm.getSensorsInfos()
