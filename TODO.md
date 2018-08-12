@@ -15,6 +15,9 @@
 #### Disks
 
 - S.M.A.R.T.
+- Disk name
+- Volume name
+- Which disk for a volume
 
 #### Network
 
@@ -29,6 +32,7 @@
 #### Sensors
 
 - Add names to sensors (temp / volt / amp / watt)
+- Fans names
 
 #### Power
 
