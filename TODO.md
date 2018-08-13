@@ -39,3 +39,9 @@ Add iOS compatibility??
 #### Power
 
 - Charger power capability
+
+#### System
+
+- Device model
+- Machine arch
+- Processes / threads / load avg
