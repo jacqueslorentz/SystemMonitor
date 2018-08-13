@@ -1,5 +1,7 @@
 ## Features
 
+Add iOS compatibility??
+
 #### Memory
 
 - Total RAM
