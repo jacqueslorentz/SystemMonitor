@@ -128,15 +128,12 @@ struct MemoryHandler {
     
     static func getSwapInfos() throws -> SwapUsage {
         let request = [CTL_VM, VM_SWAPUSAGE]
-        let size = MemoryLayout<xsw_usage>.size / MemoryLayout<UInt64>.size
-        let ptr = UnsafeMutablePointer<UInt64>.allocate(capacity: size)
-        var count = 0
-        if (sysctl(UnsafeMutablePointer(mutating: request), UInt32(request.count), ptr, &count, nil, 0) != 0) {
+        var count = MemoryLayout<xsw_usage>.size
+        var usage = xsw_usage()
+        if (sysctl(UnsafeMutablePointer(mutating: request), UInt32(request.count), &usage, &count, nil, 0) != 0) {
             throw SystemMonitorError.sysctlError(arg: request, errno: stringErrno())
         }
-        let res = Array(UnsafeBufferPointer(start: ptr, count: size))
-        ptr.deallocate()
-        return SwapUsage(total: res[0], used: res[1], free: res[2]);
+        return SwapUsage(total: usage.xsu_total, used: usage.xsu_used, free: usage.xsu_avail)
     }
 }
 

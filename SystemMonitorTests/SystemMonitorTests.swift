@@ -172,9 +172,9 @@ class SystemMonitorTests: XCTestCase {
         print("\tSwap Usage:")
         let swapUsage = memoryInfos.swapUsage
         let swapUsageUnit = try memoryInfos.swapUsage.convertTo(unit: unitToConvert)
-        print("\t\tTotal:", floatTrunc(flt: swapUsageUnit.total, decimalNb: 2), swapUsageUnit.unit, "(", swapUsage.total, "pages )")
-        print("\t\tUsed: ", floatTrunc(flt: swapUsageUnit.used, decimalNb: 2), swapUsageUnit.unit, "(", swapUsage.used, "pages )")
-        print("\t\tFree: ", floatTrunc(flt: swapUsageUnit.free, decimalNb: 2), swapUsageUnit.unit, "(", swapUsage.free, "pages )")
+        print("\t\tTotal:", floatTrunc(flt: swapUsageUnit.total, decimalNb: 2), swapUsageUnit.unit, "(", swapUsage.total, "bytes )")
+        print("\t\tUsed: ", floatTrunc(flt: swapUsageUnit.used, decimalNb: 2), swapUsageUnit.unit, "(", swapUsage.used, "bytes )")
+        print("\t\tFree: ", floatTrunc(flt: swapUsageUnit.free, decimalNb: 2), swapUsageUnit.unit, "(", swapUsage.free, "bytes )")
         
         print("Disks/Volumes Infos:")
         let disksVolumesInfos = try sm.getDiskInfos()
