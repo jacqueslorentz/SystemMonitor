@@ -60,9 +60,9 @@ Memory Infos:
 		Compressed:  2.81 GB ( 737906 pages )
 		Availablbe:  5.24 GB ( 1374820 pages )
 	Swap Usage:
-		Total: 0.0 GB ( 0 pages )
-		Used:  1.5032386e+10 GB ( 16140901064775106613 pages )
-		Free:  4.04 GB ( 4335861762 pages )
+		Total: 1.0 GB ( 1073741824 bytes )
+		Used:  0.03 GB ( 33554432 bytes )
+		Free:  0.97 GB ( 1040187392 bytes )
 Disks/Volumes Infos:
 	Volumes Infos:
 		/dev/disk2s2 [hfs] /Volumes/Sauvegarde 	 58.07GB available on 372.53GB (58.07GB free)
