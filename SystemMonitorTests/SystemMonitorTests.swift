@@ -43,7 +43,7 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testSystemMonitor() throws {
-        let sm = try SystemMonitorInstance()
+        let sm = try SystemMonitor()
         let infos = try sm.getInfos()
         if (printDebug) {
             print(infos)
@@ -51,7 +51,7 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testMemoryHandler() throws {
-        let sm = try SystemMonitorInstance()
+        let sm = try SystemMonitor()
         let infos = try sm.getMemoryInfos()
         if (printDebug) {
             print(infos)
@@ -59,7 +59,7 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testProcessorHandler() throws {
-        let sm = try SystemMonitorInstance()
+        let sm = try SystemMonitor()
         let infos = try sm.getProcessorInfos()
         if (printDebug) {
             print(infos)
@@ -67,7 +67,7 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testDiskHandler() throws {
-        let sm = try SystemMonitorInstance()
+        let sm = try SystemMonitor()
         let infos = try sm.getDiskInfos()
         if (printDebug) {
             print(infos)
@@ -75,7 +75,7 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testNetworkHandler() throws {
-        let sm = try SystemMonitorInstance()
+        let sm = try SystemMonitor()
         let infos = try sm.getNetworkInfos()
         if (printDebug) {
             print(infos)
@@ -83,7 +83,7 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testGPUHandler() throws {
-        let sm = try SystemMonitorInstance()
+        let sm = try SystemMonitor()
         let infos = try sm.getGPUInfos()
         if (printDebug) {
             print(infos)
@@ -91,7 +91,7 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testSystemHandler() throws {
-        let sm = try SystemMonitorInstance()
+        let sm = try SystemMonitor()
         let infos = try sm.getSystemInfos()
         if (printDebug) {
             print(infos)
@@ -99,7 +99,7 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testBatteryHandler() throws {
-        let sm = try SystemMonitorInstance()
+        let sm = try SystemMonitor()
         let infos = try sm.getBatteryInfos()
         if (printDebug) {
             print(infos)
@@ -107,7 +107,7 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testSensorsHandler() throws {
-        let sm = try SystemMonitorInstance()
+        let sm = try SystemMonitor()
         let infos = try sm.getSensorsInfos()
         if (printDebug) {
             print(infos)
@@ -115,7 +115,7 @@ class SystemMonitorTests: XCTestCase {
     }
     
     func testNiceDisplay() throws {
-        let sm = try SystemMonitorInstance()
+        let sm = try SystemMonitor()
         
         print("System Infos:")
         let systemInfos = try sm.getSystemInfos()

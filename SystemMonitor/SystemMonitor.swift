@@ -49,7 +49,7 @@ public struct SystemInfos {
     let sensors: SensorsInfos
 }
 
-class SystemMonitorInstance {
+public class SystemMonitor {
     let sensorsHandler: SensorsHandler
         
     init() throws {

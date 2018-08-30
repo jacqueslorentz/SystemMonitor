@@ -10,7 +10,7 @@ Then you can call function to get informations from your system (see below for s
 
 ```swift
 // To initialize the monitor instance
-let monitor = try SystemMonitorInstance()
+let monitor = try SystemMonitor()
 
 // Returns SystemInfos struct with all informations
 let infos = try monitor.getInfos() 
