@@ -1,6 +1,6 @@
 NAME	= SystemMonitor
 PROJECT	= $(NAME).xcodeproj
-SCHEME	= $(NAME)Tests
+SCHEME	= $(NAME)
 
 all:
 	xcodebuild -project $(PROJECT)
