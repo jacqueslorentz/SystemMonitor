@@ -52,11 +52,11 @@ public struct SystemInfos {
 public class SystemMonitor {
     let sensorsHandler: SensorsHandler
         
-    init() throws {
+    public init() throws {
         self.sensorsHandler = try SensorsHandler()
     }
     
-    func getInfos() throws -> SystemInfos {
+    public func getInfos() throws -> SystemInfos {
         return SystemInfos(
             memory: try self.getMemoryInfos(),
             processor: try self.getProcessorInfos(),
@@ -69,43 +69,43 @@ public class SystemMonitor {
         )
     }
     
-    func getMemoryInfos() throws -> MemoryUsage {
+    public func getMemoryInfos() throws -> MemoryUsage {
         return MemoryUsage(
             swapUsage: try MemoryHandler.getSwapInfos(),
             ramUsage: try MemoryHandler.getRAMInfos()
         )
     }
     
-    func getProcessorInfos() throws -> CPUInfos {
+    public func getProcessorInfos() throws -> CPUInfos {
         return CPUInfos(
             usage: try ProcessorHandler.getCPUUsage()
         )
     }
     
-    func getDiskInfos() throws -> VolumesDisksInfos {
+    public func getDiskInfos() throws -> VolumesDisksInfos {
         return VolumesDisksInfos(
             volumes: try DiskHandler.getVolumesInfos(),
             disks: try DiskHandler.getDisksInfos()
         )
     }
     
-    func getNetworkInfos() throws -> [NetworkInterfaceInfos] {
+    public func getNetworkInfos() throws -> [NetworkInterfaceInfos] {
         return try NetworkHandler.getNetworkInfos()
     }
     
-    func getGPUInfos() throws -> [GPUInfos] {
+    public func getGPUInfos() throws -> [GPUInfos] {
         return try GPUHandler.getGPUUsage()
     }
     
-    func getSystemInfos() throws -> SystemSpecificInfos {
+    public func getSystemInfos() throws -> SystemSpecificInfos {
         return try SystemHandler.getSystemInfos()
     }
     
-    func getBatteryInfos() throws -> BatteryInfos {
+    public func getBatteryInfos() throws -> BatteryInfos {
         return try BatteryHandler.getBatteryInfos()
     }
     
-    func getSensorsInfos() throws -> SensorsInfos {
+    public func getSensorsInfos() throws -> SensorsInfos {
         return try sensorsHandler.getSensorsInfos()
     }
 }
