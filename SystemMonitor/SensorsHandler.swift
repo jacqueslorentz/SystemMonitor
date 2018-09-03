@@ -144,8 +144,9 @@ struct SensorsHandler {
             inputStruct.key = key
             inputStruct.keyInfo.dataSize = 4
             inputStruct.data8 = 5
-            if (IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize) != kIOReturnSuccess) {
-                throw SystemMonitorError.SMCError()
+            let returnValue = IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize)
+            if (returnValue != kIOReturnSuccess) {
+                throw SystemMonitorError.SMCError(errorCode: returnValue)
             }
             let total = UInt32(outputStruct.bytes.0) << 24 + UInt32(outputStruct.bytes.1) << 16
                 + UInt32(outputStruct.bytes.2) << 8 + UInt32(outputStruct.bytes.3)
@@ -154,15 +155,19 @@ struct SensorsHandler {
             while (i < total) {
                 inputStruct.data8 = 8
                 inputStruct.data32 = i
-                if (IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize) != kIOReturnSuccess) {
-                    throw SystemMonitorError.SMCError()
+                
+                let returnVal0 = IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize)
+                if (returnVal0 != kIOReturnSuccess) {
+                    throw SystemMonitorError.SMCError(errorCode: returnVal0)
                 }
                 let key = outputStruct.key
                 inputStruct.key = outputStruct.key
                 inputStruct.keyInfo.dataSize = 4
                 inputStruct.data8 = 9
-                if (IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize) != kIOReturnSuccess) {
-                    throw SystemMonitorError.SMCError()
+                
+                let returnVal1 = IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize)
+                if (returnVal1 != kIOReturnSuccess) {
+                    throw SystemMonitorError.SMCError(errorCode: returnVal1)
                 }
                 let dataType = outputStruct.keyInfo.dataType
                 if (acceptKey(key: key, type: dataType)) {
@@ -191,8 +196,10 @@ struct SensorsHandler {
                 inputStruct.key = s.0
                 inputStruct.keyInfo.dataSize = 4
                 inputStruct.data8 = 5
-                if (IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize) != kIOReturnSuccess) {
-                    throw SystemMonitorError.SMCError()
+                
+                let returnVal0 = IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize)
+                if (returnVal0 != kIOReturnSuccess) {
+                    throw SystemMonitorError.SMCError(errorCode: returnVal0)
                 }
                 let data = outputStruct.bytes
                 if (letter != 0x46) {
