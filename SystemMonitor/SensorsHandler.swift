@@ -146,7 +146,7 @@ struct SensorsHandler {
             inputStruct.data8 = 5
             let returnValue = IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize)
             if (returnValue != kIOReturnSuccess) {
-                throw SystemMonitorError.SMCError(errorCode: returnValue)
+                throw SystemMonitorError.SMCError(error: errorCodeToString(errorCode: returnValue))
             }
             let total = UInt32(outputStruct.bytes.0) << 24 + UInt32(outputStruct.bytes.1) << 16
                 + UInt32(outputStruct.bytes.2) << 8 + UInt32(outputStruct.bytes.3)
@@ -158,7 +158,7 @@ struct SensorsHandler {
                 
                 let returnVal0 = IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize)
                 if (returnVal0 != kIOReturnSuccess) {
-                    throw SystemMonitorError.SMCError(errorCode: returnVal0)
+                    throw SystemMonitorError.SMCError(error: errorCodeToString(errorCode: returnVal0))
                 }
                 let key = outputStruct.key
                 inputStruct.key = outputStruct.key
@@ -167,7 +167,7 @@ struct SensorsHandler {
                 
                 let returnVal1 = IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize)
                 if (returnVal1 != kIOReturnSuccess) {
-                    throw SystemMonitorError.SMCError(errorCode: returnVal1)
+                    throw SystemMonitorError.SMCError(error: errorCodeToString(errorCode: returnVal1))
                 }
                 let dataType = outputStruct.keyInfo.dataType
                 if (acceptKey(key: key, type: dataType)) {
@@ -199,7 +199,7 @@ struct SensorsHandler {
                 
                 let returnVal0 = IOConnectCallStructMethod(ioc, 2, &inputStruct, inputStructSize, &outputStruct, &outputStructSize)
                 if (returnVal0 != kIOReturnSuccess) {
-                    throw SystemMonitorError.SMCError(errorCode: returnVal0)
+                    throw SystemMonitorError.SMCError(error: errorCodeToString(errorCode: returnVal0))
                 }
                 let data = outputStruct.bytes
                 if (letter != 0x46) {
@@ -272,4 +272,61 @@ func acceptKey(key: UInt32, type: UInt32) -> Bool {
             || letter == 0x50 && (type == flt || type == sp78) // P - flt & sp78
             || letter == 0x46 && type == fpe2 // F - fpe2
     )
+}
+
+func errorCodeToString(errorCode: Int32) -> String {
+    let map = [
+        kIOReturnSuccess:          "success",
+        kIOReturnError:            "general error",
+        kIOReturnNoMemory:         "memory allocation error",
+        kIOReturnNoResources:      "resource shortage",
+        kIOReturnIPCError:         "Mach IPC failure",
+        kIOReturnNoDevice:         "no such device",
+        kIOReturnNotPrivileged:    "privilege violation",
+        kIOReturnBadArgument:      "invalid argument",
+        kIOReturnLockedRead:       "device is read locked",
+        kIOReturnLockedWrite:      "device is write locked",
+        kIOReturnExclusiveAccess:  "device is exclusive access",
+        kIOReturnBadMessageID:     "bad IPC message ID",
+        kIOReturnUnsupported:      "unsupported function",
+        kIOReturnVMError:          "virtual memory error",
+        kIOReturnInternalError:    "internal driver error",
+        kIOReturnIOError:          "I/O error",
+        kIOReturnCannotLock:       "cannot acquire lock",
+        kIOReturnNotOpen:          "device is not open",
+        kIOReturnNotReadable:      "device is not readable",
+        kIOReturnNotWritable:      "device is not writeable",
+        kIOReturnNotAligned:       "alignment error",
+        kIOReturnBadMedia:         "media error",
+        kIOReturnStillOpen:        "device is still open",
+        kIOReturnRLDError:         "rld failure",
+        kIOReturnDMAError:         "DMA failure",
+        kIOReturnBusy:             "device is busy",
+        kIOReturnTimeout:          "I/O timeout",
+        kIOReturnOffline:          "device is offline",
+        kIOReturnNotReady:         "device is not ready",
+        kIOReturnNotAttached:      "device/channel is not attached",
+        kIOReturnNoChannels:       "no DMA channels available",
+        kIOReturnNoSpace:          "no space for data",
+        kIOReturnPortExists:       "device port already exists",
+        kIOReturnCannotWire:       "cannot wire physical memory",
+        kIOReturnNoInterrupt:      "no interrupt attached",
+        kIOReturnNoFrames:         "no DMA frames enqueued",
+        kIOReturnMessageTooLarge:  "message is too large",
+        kIOReturnNotPermitted:     "operation is not permitted",
+        kIOReturnNoPower:          "device is without power",
+        kIOReturnNoMedia:          "media is not present",
+        kIOReturnUnformattedMedia: "media is not formatted",
+        kIOReturnUnsupportedMode:  "unsupported mode",
+        kIOReturnUnderrun:         "data underrun",
+        kIOReturnOverrun:          "data overrun",
+        kIOReturnDeviceError:      "device error",
+        kIOReturnNoCompletion:     "no completion routine",
+        kIOReturnAborted:          "operation was aborted",
+        kIOReturnNoBandwidth:      "bus bandwidth would be exceeded",
+        kIOReturnNotResponding:    "device is not responding",
+        kIOReturnInvalid:          "unanticipated driver error",
+        0:                         "null"
+    ]
+    return map[errorCode] ?? "null"
 }

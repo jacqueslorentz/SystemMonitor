@@ -35,7 +35,7 @@ enum SystemMonitorError : Error {
     case statfsError(errno: String)
     case IOKitError(error: String)
     case getifaddrsError()
-    case SMCError(errorCode: kern_return_t)
+    case SMCError(error: String)
 }
 
 public struct SystemInfos {
