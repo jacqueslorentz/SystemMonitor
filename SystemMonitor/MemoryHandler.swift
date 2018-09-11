@@ -113,7 +113,7 @@ struct MemoryHandler {
             if (tag.1 == 1) {
                 stat[tag.0] = UInt(array[inc])
             } else {
-                stat[tag.0] = UInt(UInt32(array[inc])) + UInt(UInt32(array[inc + 1])) * UInt(UINT32_MAX)
+                stat[tag.0] = 0//UInt(UInt32(array[inc])) + UInt(UInt32(array[inc + 1])) * UInt(UINT32_MAX)
             }
             inc += tag.1
         }

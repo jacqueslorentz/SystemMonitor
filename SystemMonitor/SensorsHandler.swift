@@ -330,5 +330,5 @@ func errorCodeToString(errorCode: Int32) -> String {
         kIOReturnNotFound:          "data was not found",
         kIOReturnInvalid:           "should never be seen"
     ]
-    return map[errorCode] ?? "no defined"
+    return map[errorCode] ?? "error code not defined (" + String(errorCode) + ")"
 }
