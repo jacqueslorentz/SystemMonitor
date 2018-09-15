@@ -33,6 +33,8 @@ Do not forget to add the framework to your macOS project ([see Carthage document
 
 See the [API.md](API.md) file, there is a description of data collected by SystemMonitor and how to use it.
 
+Note that you need to disable Application Sandboxing in the Xcode project.
+
 Furthermore in the test file [SystemMonitorTests.swift](SystemMonitorTests/SystemMonitorTests.swift) is a function call **testNiceDisplay** that display the following output, you can use it to inspirate yourself.
 
 ```
