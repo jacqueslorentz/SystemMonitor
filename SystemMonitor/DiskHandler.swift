@@ -29,28 +29,28 @@
 import IOKit
 
 public struct VolumesDisksInfos {
-    let volumes: [VolumeInfos]
-    let disks: [DiskInfos]
+    public let volumes: [VolumeInfos]
+    public let disks: [DiskInfos]
 }
 
 public struct ConvertedVolumeUsage {
-    let total: Float
-    let free: Float
-    let available: Float
-    let unit: String
+    public let total: Float
+    public let free: Float
+    public let available: Float
+    public let unit: String
 }
 
 // In blocks
 public struct VolumeUsage {
-    let blocksize: UInt32
-    let iosize: Int32
-    let blocks: UInt64
-    let free: UInt64
-    let available: UInt64
-    let files: UInt64
-    let filesfree: UInt64
+    public let blocksize: UInt32
+    public let iosize: Int32
+    public let blocks: UInt64
+    public let free: UInt64
+    public let available: UInt64
+    public let files: UInt64
+    public let filesfree: UInt64
     
-    func convertTo(unit: String) throws -> ConvertedVolumeUsage {
+    public func convertTo(unit: String) throws -> ConvertedVolumeUsage {
         let pageSize: UInt64 = UInt64(blocksize)
         let mult = try getBytesConversionMult(unit: unit)
         return ConvertedVolumeUsage(
@@ -63,24 +63,24 @@ public struct VolumeUsage {
 }
 
 public struct VolumeInfos {
-    let filesystem: String
-    let mountpoint: String
-    let mountname: String
-    let usage: VolumeUsage
+    public let filesystem: String
+    public let mountpoint: String
+    public let mountname: String
+    public let usage: VolumeUsage
 }
 
 public struct DiskUsage {
-    let bytesread: UInt64
-    let byteswritten: UInt64
-    let operationsread: UInt64
-    let operationswritten: UInt64
+    public let bytesread: UInt64
+    public let byteswritten: UInt64
+    public let operationsread: UInt64
+    public let operationswritten: UInt64
 }
 
 public struct DiskInfos {
-    let name: String
-    let blocksize: UInt32
-    let size: UInt64
-    let usage: DiskUsage
+    public let name: String
+    public let blocksize: UInt32
+    public let size: UInt64
+    public let usage: DiskUsage
 }
 
 struct DiskHandler {

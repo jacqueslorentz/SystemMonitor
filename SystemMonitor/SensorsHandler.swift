@@ -112,18 +112,18 @@ public struct SMCParamStruct {
 }
 
 public struct FanSensor {
-    let min: Float
-    let max: Float
-    let actual: Float
-    let target: Float
+    public let min: Float
+    public let max: Float
+    public let actual: Float
+    public let target: Float
 }
 
 public struct SensorsInfos {
-    let fans: [FanSensor]
-    let temperatures: [String:Float]
-    let amperages: [String:Float]
-    let voltages: [String:Float]
-    let powers: [String:Float]
+    public let fans: [FanSensor]
+    public let temperatures: [String:Float]
+    public let amperages: [String:Float]
+    public let voltages: [String:Float]
+    public let powers: [String:Float]
 }
 
 struct SensorsHandler {

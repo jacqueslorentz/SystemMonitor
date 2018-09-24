@@ -29,10 +29,10 @@
 import Foundation
 
 public struct SystemSpecificInfos {
-    let boottime: Int
-    let hostname: String
-    let kernel: String
-    let kernelVersion: String
+    public let boottime: Int
+    public let hostname: String
+    public let kernel: String
+    public let kernelVersion: String
 }
 
 struct SystemHandler {
