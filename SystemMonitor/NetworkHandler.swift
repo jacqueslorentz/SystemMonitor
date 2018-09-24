@@ -29,38 +29,38 @@
 import Darwin
 
 public struct InterfaceAddressFlags {
-    let iff_up: Bool
-    let iff_broadcast: Bool
-    let iff_debug: Bool
-    let iff_loopback: Bool
-    let iff_pointopoint: Bool
-    let iff_notrailers: Bool
-    let iff_running: Bool
-    let iff_noarp: Bool
-    let iff_promisc: Bool
-    let iff_allmulti: Bool
-    let iff_oactive: Bool
-    let iff_simplex: Bool
-    let iff_link0: Bool
-    let iff_link1: Bool
-    let iff_link2: Bool
-    let iff_altphys: Bool
-    let iff_multicast: Bool
+    public let iff_up: Bool
+    public let iff_broadcast: Bool
+    public let iff_debug: Bool
+    public let iff_loopback: Bool
+    public let iff_pointopoint: Bool
+    public let iff_notrailers: Bool
+    public let iff_running: Bool
+    public let iff_noarp: Bool
+    public let iff_promisc: Bool
+    public let iff_allmulti: Bool
+    public let iff_oactive: Bool
+    public let iff_simplex: Bool
+    public let iff_link0: Bool
+    public let iff_link1: Bool
+    public let iff_link2: Bool
+    public let iff_altphys: Bool
+    public let iff_multicast: Bool
 }
 
 public struct InterfaceAddress {
-    let address: String
-    let netmask: String
-    let destaddress: String
-    let type: String
-    let flags: InterfaceAddressFlags
+    public let address: String
+    public let netmask: String
+    public let destaddress: String
+    public let type: String
+    public let flags: InterfaceAddressFlags
 }
 
 public struct NetworkInterfaceInfos {
-    let name: String
-    let bytessend: UInt
-    let bytesreceived: UInt
-    let addresses: [InterfaceAddress]
+    public let name: String
+    public let bytessend: UInt
+    public let bytesreceived: UInt
+    public let addresses: [InterfaceAddress]
 }
 
 struct NetworkHandler {

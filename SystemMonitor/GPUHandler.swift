@@ -29,21 +29,21 @@
 import IOKit
 
 public struct GPUSensors {
-    let totalPower: UInt
-    let temperature: UInt
-    let fanSpeedPercent: UInt
-    let fanSpeedRPM: UInt
+    public let totalPower: UInt
+    public let temperature: UInt
+    public let fanSpeedPercent: UInt
+    public let fanSpeedRPM: UInt
 }
 
 public struct GPUInfos {
-    let name: String
-    let isOn: Bool
-    let utilization: UInt
-    let vramTotalMB: UInt
-    let vramFreeMB: UInt
-    let coreClockMHz: UInt
-    let memoryClockMHz: UInt
-    let sensors: GPUSensors
+    public let name: String
+    public let isOn: Bool
+    public let utilization: UInt
+    public let vramTotalMB: UInt
+    public let vramFreeMB: UInt
+    public let coreClockMHz: UInt
+    public let memoryClockMHz: UInt
+    public let sensors: GPUSensors
 }
 
 struct GPUHandler {

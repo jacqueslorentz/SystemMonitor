@@ -29,19 +29,19 @@
 import Foundation
 
 public struct CPUCoreUsagePercent {
-    let user: Float
-    let system: Float
-    let idle: Float
-    let nice: Float
+    public let user: Float
+    public let system: Float
+    public let idle: Float
+    public let nice: Float
 }
 
 public struct CPUCoreUsage {
-    let user: UInt32
-    let system: UInt32
-    let idle: UInt32
-    let nice: UInt32
+    public let user: UInt32
+    public let system: UInt32
+    public let idle: UInt32
+    public let nice: UInt32
     
-    func toPercent() -> CPUCoreUsagePercent {
+    public func toPercent() -> CPUCoreUsagePercent {
         let total = Float(self.user + self.system + self.idle + self.nice) / 100
         return CPUCoreUsagePercent(
             user: Float(self.user) / total,
@@ -53,15 +53,15 @@ public struct CPUCoreUsage {
 }
 
 public struct CPUUsagePercent {
-    let cores: [CPUCoreUsagePercent]
-    let total: CPUCoreUsagePercent
+    public let cores: [CPUCoreUsagePercent]
+    public let total: CPUCoreUsagePercent
 }
 
 public struct CPUUsage {
-    let cores: [CPUCoreUsage]
-    let total: CPUCoreUsage
+    public let cores: [CPUCoreUsage]
+    public let total: CPUCoreUsage
     
-    func toPercent(unixLike: Bool) -> CPUUsagePercent {
+    public func toPercent(unixLike: Bool) -> CPUUsagePercent {
         let totalNotUnix = self.total.toPercent()
         let coresNb = Float(self.cores.count)
         let total = (unixLike ? CPUCoreUsagePercent(
@@ -78,7 +78,7 @@ public struct CPUUsage {
 }
 
 public struct CPUInfos {
-    let usage: CPUUsage
+    public let usage: CPUUsage
 }
 
 struct ProcessorHandler {

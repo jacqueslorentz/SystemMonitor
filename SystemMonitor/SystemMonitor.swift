@@ -39,14 +39,14 @@ enum SystemMonitorError : Error {
 }
 
 public struct SystemInfos {
-    let memory: MemoryUsage
-    let processor: CPUInfos
-    let disk: VolumesDisksInfos
-    let network: [NetworkInterfaceInfos]
-    let graphics: [GPUInfos]
-    let system: SystemSpecificInfos
-    let battery: BatteryInfos
-    let sensors: SensorsInfos
+    public let memory: MemoryUsage
+    public let processor: CPUInfos
+    public let disk: VolumesDisksInfos
+    public let network: [NetworkInterfaceInfos]
+    public let graphics: [GPUInfos]
+    public let system: SystemSpecificInfos
+    public let battery: BatteryInfos
+    public let sensors: SensorsInfos
 }
 
 public class SystemMonitor {

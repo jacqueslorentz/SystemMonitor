@@ -29,23 +29,23 @@
 import Foundation
 
 public struct BatteryInfos {
-    let serialNumber: String
-    let manufactureDate: Date
-    let cycleCount: Int
+    public let serialNumber: String
+    public let manufactureDate: Date
+    public let cycleCount: Int
     
-    let designCapacity: Int
-    let maxCapacity: Int
-    let currentCapacity: Int
-    let voltage: Int
-    let amperage: Int
-    let instantAmperage: Int
+    public let designCapacity: Int
+    public let maxCapacity: Int
+    public let currentCapacity: Int
+    public let voltage: Int
+    public let amperage: Int
+    public let instantAmperage: Int
     
-    let timeRemaining: Int
-    let timeToFull: Int
-    let timeToEmpty: Int
-    let isCharging: Bool
-    let isFullyCharged: Bool
-    let chargingCurrent: Int
+    public let timeRemaining: Int
+    public let timeToFull: Int
+    public let timeToEmpty: Int
+    public let isCharging: Bool
+    public let isFullyCharged: Bool
+    public let chargingCurrent: Int
 }
 
 struct BatteryHandler {

@@ -29,29 +29,24 @@
 import Foundation
 
 public struct MemoryUsage {
-    let swapUsage: SwapUsage
-    let ramUsage: RAMUsage
-    
-    func print() throws {
-        Swift.print(try swapUsage.convertTo(unit: "GB"))
-        Swift.print(try ramUsage.convertTo(unit: "GB"))
-    }
+    public let swapUsage: SwapUsage
+    public let ramUsage: RAMUsage
 }
 
 public struct ConvertedSwapUsage {
-    let total: Float
-    let used: Float
-    let free: Float
-    let unit: String
+    public let total: Float
+    public let used: Float
+    public let free: Float
+    public let unit: String
 }
 
 // In bytes
 public struct SwapUsage {
-    let total: UInt64
-    let used: UInt64
-    let free: UInt64
+    public let total: UInt64
+    public let used: UInt64
+    public let free: UInt64
     
-    func convertTo(unit: String) throws -> ConvertedSwapUsage {
+    public func convertTo(unit: String) throws -> ConvertedSwapUsage {
         let mult = try getBytesConversionMult(unit: unit)
         return ConvertedSwapUsage(
             total: (Float)(self.total) / mult,
@@ -63,23 +58,23 @@ public struct SwapUsage {
 }
 
 public struct ConvertedRAMUsage {
-    let wired: Float
-    let active: Float
-    let appMemory: Float
-    let compressed: Float
-    let available: Float
-    let unit: String
+    public let wired: Float
+    public let active: Float
+    public let appMemory: Float
+    public let compressed: Float
+    public let available: Float
+    public let unit: String
 }
 
 // In Memory pages (4096 bytes)
 public struct RAMUsage {
-    let wired: UInt
-    let active: UInt
-    let appMemory: UInt
-    let compressed: UInt
-    let available: UInt
+    public let wired: UInt
+    public let active: UInt
+    public let appMemory: UInt
+    public let compressed: UInt
+    public let available: UInt
     
-    func convertTo(unit: String) throws -> ConvertedRAMUsage {
+    public func convertTo(unit: String) throws -> ConvertedRAMUsage {
         let pageSize: UInt = 4096
         let mult = try getBytesConversionMult(unit: unit)
         return ConvertedRAMUsage(
