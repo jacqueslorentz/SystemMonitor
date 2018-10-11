@@ -1,3 +1,8 @@
+## Bug To Fix
+
+- RAM infos on two bytes error, replaced by 0
+
+
 ## Features
 
 Add iOS compatibility??
