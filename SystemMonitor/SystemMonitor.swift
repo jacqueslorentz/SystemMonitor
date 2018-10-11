@@ -51,9 +51,11 @@ public struct SystemInfos {
 
 public class SystemMonitor {
     let sensorsHandler: SensorsHandler
+    var processorHandler: ProcessorHandler
         
     public init() throws {
         self.sensorsHandler = try SensorsHandler()
+        self.processorHandler = try ProcessorHandler()
     }
     
     public func getInfos() throws -> SystemInfos {
@@ -78,7 +80,7 @@ public class SystemMonitor {
     
     public func getProcessorInfos() throws -> CPUInfos {
         return CPUInfos(
-            usage: try ProcessorHandler.getCPUUsage()
+            usage: try self.processorHandler.getCPUUsage()
         )
     }
     

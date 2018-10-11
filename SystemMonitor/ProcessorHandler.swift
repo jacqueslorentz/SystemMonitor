@@ -82,11 +82,25 @@ public struct CPUInfos {
 }
 
 struct ProcessorHandler {
-    static func getCPUUsage() throws -> CPUUsage {
-        let cpuLoad = try hostProcessorCall(request: PROCESSOR_CPU_LOAD_INFO);
-        let cores = cpuLoad.map { (load: [UInt32]) -> CPUCoreUsage in
-            CPUCoreUsage(user: load[0], system: load[1], idle: load[2], nice: load[3])
+    var cpuLastLoad: [[UInt32]]
+    
+    init() throws {
+        self.cpuLastLoad = try hostProcessorCall(request: PROCESSOR_CPU_LOAD_INFO)
+        usleep(100000) // For calculating CPU ticks difference
+    }
+    
+    mutating func getCPUUsage() throws -> CPUUsage {
+        let cpuLoad = try hostProcessorCall(request: PROCESSOR_CPU_LOAD_INFO)
+        let cores = cpuLoad.enumerated().map { (arg: (offset: Int, element: [UInt32])) -> CPUCoreUsage in
+            let (offset, element) = arg
+            return CPUCoreUsage(
+                user: element[0] - cpuLastLoad[offset][0],
+                system: element[1] - cpuLastLoad[offset][1],
+                idle: element[2] - cpuLastLoad[offset][2],
+                nice: element[3] - cpuLastLoad[offset][3]
+            )
         }
+        self.cpuLastLoad = cpuLoad
         let total = cores.reduce(CPUCoreUsage(user: 0, system: 0, idle: 0, nice: 0)) {
             (res: CPUCoreUsage, elem: CPUCoreUsage) -> CPUCoreUsage in CPUCoreUsage(
                 user: res.user + elem.user,
@@ -117,7 +131,7 @@ func hostProcessorCall(request: Int32) throws -> [[UInt32]] {
             cpuLoad[i].cpu_ticks.1,
             cpuLoad[i].cpu_ticks.2,
             cpuLoad[i].cpu_ticks.3,
-            ])
+        ])
     }
     munmap(array, Int(vm_page_size))
     return res
