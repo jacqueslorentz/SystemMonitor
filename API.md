@@ -77,6 +77,9 @@ public struct SystemSpecificInfos {
 ```swift
 // All processor informations
 public struct CPUInfos {
+    let coreNumber: Int32
+    let model: String
+    let cpuFeatures: [String]
     let usage: CPUUsage
 }
 // Processor usage

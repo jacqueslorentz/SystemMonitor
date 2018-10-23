@@ -128,6 +128,9 @@ class SystemMonitorTests: XCTestCase {
         
         print("Processor/CPU Infos:")
         let cpuInfos = try sm.getProcessorInfos()
+        print("\tCore number: \(cpuInfos.coreNumber)")
+        print("\tModel: \(cpuInfos.model)")
+        print("\tCPU Features: \(cpuInfos.cpuFeatures)")
         print("\tCPU Usage:\t User\t System\t Idle\t Nice")
         let cpuUsage = cpuInfos.usage
         for (index, core) in cpuUsage.cores.enumerated() {

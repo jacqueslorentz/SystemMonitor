@@ -15,8 +15,6 @@ Add iOS compatibility??
 
 #### Processor
 
-- Core number
-- CPU Infos (model,...)
 - CPU frequency / temp (Intel Power Gadget)
 
 #### Disks

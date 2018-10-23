@@ -44,6 +44,9 @@ System Infos:
 	Kernel Version: 18.0.0
 	Boottime: 2018-08-10 22:14:25 +0000
 Processor/CPU Infos:
+	Core number: 8
+	Model: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+	CPU Features: ["FPU", "VME", "DE", "PSE", "TSC", "MSR", "PAE", "MCE", "CX8", "APIC", "SEP", "MTRR", "PGE", "MCA", "CMOV", "PAT", "PSE36", "CLFSH", "DS", "ACPI", "MMX", "FXSR", "SSE", "SSE2","SS", "HTT", "TM", "PBE", "SSE3", "PCLMULQDQ", "DTES64", "MON", "DSCPL", "VMX", "EST", "TM2", "SSSE3", "FMA", "CX16", "TPR", "PDCM", "SSE4.1", "SSE4.2", "x2APIC", "MOVBE", "POPCNT", "AES", "PCID", "XSAVE", "OSXSAVE", "SEGLIM64", "TSCTMR", "AVX1.0", "RDRAND", "F16C"]
 	CPU Usage:	 User	 System	 Idle	 Nice
 		CPU0:	 18.8%	 15.4%	 65.8%	 0.0%	 (1135580, 934299, 3986371, 0)
 		CPU1:	 2.0%	 1.8%	 96.2%	 0.0%	 (118735, 109779, 5827165, 0)

@@ -78,14 +78,30 @@ public struct CPUUsage {
 }
 
 public struct CPUInfos {
+    public let coreNumber: Int32
+    public let model: String
+    public let cpuFeatures: [String]
     public let usage: CPUUsage
 }
 
 struct ProcessorHandler {
     var cpuLastLoad: [[UInt32]]
+    let coreNumber: Int32
+    let model: String
+    let features: [String]
     
     init() throws {
         self.cpuLastLoad = try hostProcessorCall(request: PROCESSOR_CPU_LOAD_INFO)
+    
+        var count = 4
+        var nb: Int32 = 0
+        if (sysctlbyname("hw.ncpu", &nb, &count, nil, 0) != 0) {
+            throw SystemMonitorError.sysctlError(arg: "hw.ncpu", errno: stringErrno())
+        }
+        self.coreNumber = (count == 4 ? nb : 0)
+        self.model = try getSysctlString(request: "machdep.cpu.brand_string")
+        self.features = try getSysctlString(request: "machdep.cpu.features").split(separator: " ").map({ String($0) })
+        
         usleep(100000) // For calculating CPU ticks difference
     }
     
@@ -110,6 +126,15 @@ struct ProcessorHandler {
             )
         }
         return CPUUsage(cores: cores, total: total)
+    }
+    
+    mutating func getCPUInfos() throws -> CPUInfos {
+        return CPUInfos(
+            coreNumber: self.coreNumber,
+            model: self.model,
+            cpuFeatures: self.features,
+            usage: try getCPUUsage()
+        );
     }
 }
 
