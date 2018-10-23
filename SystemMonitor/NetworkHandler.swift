@@ -82,11 +82,11 @@ func getInterfaceNames() throws -> [String] {
     let request = [CTL_NET, PF_ROUTE, 0, 0, NET_RT_IFLIST, 0]
     var count = 0
     if (sysctl(UnsafeMutablePointer(mutating: request), UInt32(request.count), nil, &count, nil, 0) != 0) {
-        throw SystemMonitorError.sysctlError(arg: request, errno: stringErrno())
+        throw SystemMonitorError.sysctlError(arg: "net...", errno: stringErrno())
     }
     let ptr = UnsafeMutablePointer<Int8>.allocate(capacity: count)
     if (sysctl(UnsafeMutablePointer(mutating: request), UInt32(request.count), ptr, &count, nil, 0) != 0) {
-        throw SystemMonitorError.sysctlError(arg: request, errno: stringErrno())
+        throw SystemMonitorError.sysctlError(arg: "net...", errno: stringErrno())
     }
     var interfaces = [String]()
     var cursor = 0
@@ -115,11 +115,11 @@ func getInterfaceIO(interfaces: [String]) throws -> [NetworkInterfaceInfos] {
     let request = [CTL_NET, PF_ROUTE, 0, 0, NET_RT_IFLIST2, 0]
     var count = 0
     if (sysctl(UnsafeMutablePointer(mutating: request), UInt32(request.count), nil, &count, nil, 0) != 0) {
-        throw SystemMonitorError.sysctlError(arg: request, errno: stringErrno())
+        throw SystemMonitorError.sysctlError(arg: "net...", errno: stringErrno())
     }
     let ptr = UnsafeMutablePointer<Int8>.allocate(capacity: count)
     if (sysctl(UnsafeMutablePointer(mutating: request), UInt32(request.count), ptr, &count, nil, 0) != 0) {
-        throw SystemMonitorError.sysctlError(arg: request, errno: stringErrno())
+        throw SystemMonitorError.sysctlError(arg: "net...", errno: stringErrno())
     }
     var io = [NetworkInterfaceInfos]()
     var cursor = 0

@@ -40,3 +40,19 @@ func getBytesConversionMult(unit: String) throws -> Float {
     let index = units.firstIndex(of: unit)
     return pow(Float(1024), Float(index!))
 }
+
+func getSysctlString(request: String) throws -> String {
+    var count = 0
+    if (sysctlbyname(request, nil, &count, nil, 0) != 0) {
+        throw SystemMonitorError.sysctlError(arg: request, errno: stringErrno())
+    }
+    let ptr = UnsafeMutablePointer<Int8>.allocate(capacity: count)
+    if (sysctlbyname(request, ptr, &count, nil, 0) != 0) {
+        throw SystemMonitorError.sysctlError(arg: request, errno: stringErrno())
+    }
+    let res = Array(UnsafeBufferPointer(start: ptr, count: count)).reduce("", { (str: String, code: Int8) -> String in
+        return (code == 0 ? str : str + String(Character(UnicodeScalar(Int(code))!)))
+    })
+    ptr.deallocate()
+    return res
+}

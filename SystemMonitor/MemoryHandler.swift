@@ -122,10 +122,10 @@ struct MemoryHandler {
     }
     
     static func getSwapInfos() throws -> SwapUsage {
-        let request = [CTL_VM, VM_SWAPUSAGE]
+        let request = "vm.swapusage"
         var count = MemoryLayout<xsw_usage>.size
         var usage = xsw_usage()
-        if (sysctl(UnsafeMutablePointer(mutating: request), UInt32(request.count), &usage, &count, nil, 0) != 0) {
+        if (sysctlbyname(request, &usage, &count, nil, 0) != 0) {
             throw SystemMonitorError.sysctlError(arg: request, errno: stringErrno())
         }
         return SwapUsage(total: usage.xsu_total, used: usage.xsu_used, free: usage.xsu_avail)

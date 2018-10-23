@@ -29,7 +29,7 @@
 import Foundation
 
 enum SystemMonitorError : Error {
-    case sysctlError(arg: [Int32], errno: String)
+    case sysctlError(arg: String, errno: String)
     case hostCallError(arg: Int32, errno: String)
     case conversionFailed(invalidUnit: String)
     case statfsError(errno: String)
@@ -79,9 +79,7 @@ public class SystemMonitor {
     }
     
     public func getProcessorInfos() throws -> CPUInfos {
-        return CPUInfos(
-            usage: try self.processorHandler.getCPUUsage()
-        )
+        return try self.processorHandler.getCPUInfos()
     }
     
     public func getDiskInfos() throws -> VolumesDisksInfos {
